@@ -1,7 +1,9 @@
 import { Button, Flex, Form, FormInstance, Image, Input, Typography, message, theme } from "antd";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseconfig"
+import { a, useInView } from "@react-spring/web";
 import React, { useState } from "react";
+import { buildInteractionObserverThreshold } from "./Intro";
 
 interface SubmitButtonProps {
     form: FormInstance;
@@ -70,18 +72,39 @@ export default function Contato() {
             falha()
         }
     }
+
+    const [ref, show] = useInView(() => ({
+        from: {
+            opacity: -1,
+            y:-100
+          },
+          to: {
+            opacity: 1,
+            y:0
+          },
+          config:{
+            duration:1000
+          },
+    }),{
+      amount: buildInteractionObserverThreshold(),
+      rootMargin: '-45% 0px -45% 0px',
+  })
+
+
+
   return (
     <>
     {contextHolder}
+    <a.div ref={ref} style={show}>
     <Flex style={{
-        height:'100vh',
+        minHeight:'100vh',
         alignItems:'center',
         justifyContent:'center',
         flexDirection:'column',
-        
+        padding:50
     }}>
-                <Flex style={{backgroundColor:colorBgBlur,borderRadius:10}}>
-                    <Image style={{borderRadius:'10px 0 0 10px'}} src="https://cdn.pixabay.com/photo/2017/06/19/04/21/payphone-2418127_640.jpg" preview={false} />
+                <Flex style={{backgroundColor:colorBgBlur,flexWrap:'wrap',maxWidth:'60vw',}}>
+                    <Image src="https://cdn.pixabay.com/photo/2017/06/19/04/21/payphone-2418127_640.jpg" preview={false} />
                     <Flex style={{flexDirection:'column'}}>
                         <Flex style={{maxWidth:300,flexDirection:'column',padding:20}}>
                             <Title>
@@ -149,6 +172,7 @@ export default function Contato() {
                     </Flex>
                 </Flex>
     </Flex>
+    </a.div>
     </>
   )
 }
