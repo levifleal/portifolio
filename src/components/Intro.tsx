@@ -133,7 +133,7 @@ export default function Intro() {
         <Flex style={{padding:10,alignItems:'center', justifyContent:'center',minHeight:'10vh'}}>
             <a.div style={scroll}>
                 <Text style={{margin:0,fontSize:20}}>
-                    Constinue rolando a pagina
+                    Continue rolando a pagina
                 </Text>
             </a.div>
             <a.div style={{paddingLeft:5,height:20, ...seta}}>
